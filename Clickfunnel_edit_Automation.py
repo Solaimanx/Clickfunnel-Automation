@@ -10,6 +10,8 @@ options.add_argument("start-maximized")
 driver = webdriver.Chrome(options=options, executable_path=r'/Users/mohammadsolaiman/Documents/chromedriver')
 driver.implicitly_wait(10)
 
+linklist = []
+
 #login 
 def login_with_cookies():
     driver.get('https://app.clickfunnels.com/users/sign_in')
@@ -18,15 +20,17 @@ def login_with_cookies():
         driver.add_cookie(cookie)
     driver.get('https://infoa9bf3f-app.clickfunnels.com/funnels/8212285/steps/50309042/overview')
     print('login successfully')
-
-def go_to_editor_and_change_img():
+    #Click "edit Page"
     driver.find_element_by_xpath("(//a[contains(@class,'btn btn-warning openPageInEditor')])[1]").click()
     sleep(5)
+
+def change_image():
+    #drive.get(url) pass a perametar
     if(driver.find_element_by_xpath("//img[contains(@src,'https://images.clickfunnels.com/94/7774b1d84a44ea840f760845e5866f/FinalLogoWhite_600px_2021.png')]")):
         #black logo
         logo = driver.find_element_by_xpath("//img[contains(@src,'https://images.clickfunnels.com/94/7774b1d84a44ea840f760845e5866f/FinalLogoWhite_600px_2021.png')]")
         logo.click()
-        image_settings = driver.execute_script("arguments[0].click();", logo)
+        driver.execute_script("arguments[0].click();", logo)
         #image input field
         img_input = driver.find_elements_by_xpath('//div[contains(@class,"elementSettingsConfigContainer eTabs_settings")]/div/div/input')[1]
         img_input.clear()
@@ -55,8 +59,7 @@ def go_to_editor_and_change_img():
 
 
 def footer_remove_and_add():
-    try:
-        #try to find the footer text
+    if(driver.find_element_by_xpath("//div[contains(text(),'כל הזכויות שמורות ללדבר אנגלית ב 21 יום')]")):
         footer = driver.find_element_by_xpath("//div[contains(text(),'כל הזכויות שמורות ללדבר אנגלית ב 21 יום')]")
         hover = ActionChains(driver).move_to_element(footer)
         hover.perform()
@@ -68,8 +71,10 @@ def footer_remove_and_add():
         remove_section.click()
         alert = driver.switch_to.alert
         alert.accept()
-    except:
-        print('Dont have footer')
+        # add new footer 
+        drag_and_drop()
+    else:
+        print('don\'t have footer')
 
 
 def drag_and_drop():
@@ -118,10 +123,18 @@ def seo_meta_tag():
 
 
 def main():
+    # login_with_cookies()
+    # ### collect links 
+    # for page_link in linklist:
+    #     change_image(page_link)
+    #     seo_meta_tag()
+    #     footer_remove_and_add()
+    # ### send email after complete 
+
+
     login_with_cookies()
-    go_to_editor_and_change_img()
-    # footer_remove_and_add()
-    # drag_and_drop()
+    change_image()
+
 
 
 #start here
