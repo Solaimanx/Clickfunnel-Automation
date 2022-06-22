@@ -12,11 +12,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 # define the web driver
 options = webdriver.ChromeOptions() 
-options.add_argument("window-size=1200x800")
 options.add_argument("start-maximized")
 driver = webdriver.Chrome(options=options, executable_path=r'/Users/mohammadsolaiman/Documents/chromedriver')
-driver.implicitly_wait(10)
+driver.implicitly_wait(40)
 
+ 
 
 #veriables to track activity in terminal
 
@@ -388,7 +388,7 @@ def main():
     for page_link in link_list:
         change_image(page_link)
         seo_meta_tag()
-        footer_remove_and_add()
+        # footer_remove_and_add()
         total += 1
         print('_____________________________________________')
         print('Pages check done =======>  '+ str(total))

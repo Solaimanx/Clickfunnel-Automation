@@ -10,8 +10,8 @@ driver = webdriver.Chrome(options=options, executable_path=r'/Users/mohammadsola
 driver.implicitly_wait(40)
 
 # login credentials
-username ='info@ericniceberg.com'
-password = 'xJL3E6PJCQkj3yx'
+username ='username'
+password = 'password'
 
 all_links = []
 
